@@ -31,7 +31,7 @@ function parse_trips_file(inpath)
 			if !isnothing(m)
 				i = parse(Int, first(m.captures))
 			else
-				for m in eachmatch(r"(\d+)\s*:\s*(\d+\.?\d*);", line)
+				for m in eachmatch(r"(\d+)\s*:\s*(\d+\.?\d*) ?;", line)
 					trips[i, parse(Int, m.captures[1])] = parse(Float64, m.captures[2])
 				end
 			end
