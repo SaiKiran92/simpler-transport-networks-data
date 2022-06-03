@@ -40,10 +40,6 @@ function parse_trips_file(inpath)
 	end
 
 	tripdata = DataFrame([(src = i, dst = j, volume = trips[i,j]) for i in 1:nzones, j in 1:nzones if trips[i,j] > 0.0])
-
-	# CSV.write(outpath, tripdata; delim="\t")
-	# tripdata = nothing
-	# return
 	return tripdata
 end
 
@@ -64,6 +60,7 @@ function parse_net_file(inpath)
 		return headerrow
 	end
 
+	# linkdata = CSV.read(IOBuffer(replace(read(inpath), UInt8('\t') => UInt8(' '))), DataFrame; header=headerrow, drop=["~", ";"])
 	linkdata = CSV.read(inpath, DataFrame; header=headerrow, drop=["~", ";"])
 	return nnodes, nzones, ftnode, linkdata
 end
